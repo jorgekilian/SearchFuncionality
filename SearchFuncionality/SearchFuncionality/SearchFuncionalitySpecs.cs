@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using NUnit.Framework;
 
 namespace SearchFuncionalitySpecs {
@@ -24,12 +25,23 @@ namespace SearchFuncionalitySpecs {
             Assert.AreEqual("Valencia", foundCities[0]);
             Assert.AreEqual("Vancouver", foundCities[1]);
         }
+
+        [Test]
+        public void return_cities_that_its_name_starts_like_search_string_case_sensitive() {
+            const string searchString = "va";
+
+            var foundCities = SearchFuncionality.Run(searchString);
+
+            Assert.AreEqual(0, foundCities.Count);
+        }
     }
 
     public class SearchFuncionality {
+        private static readonly List<string> Cities = new List<string> { "Valencia", "Vancouver" };
+
         public static List<string> Run(string searchString) {
             if (searchString.Length < 2) return new List<string>();
-            return new List<string> { "Valencia", "Vancouver" };
+            return Cities.FindAll(x => x.StartsWith(searchString));
         }
     }
 }
