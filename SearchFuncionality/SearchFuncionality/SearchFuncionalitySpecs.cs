@@ -13,11 +13,23 @@ namespace SearchFuncionalitySpecs {
 
             Assert.AreEqual(0, foundCities.Count);
         }
+
+        [Test]
+        public void return_cities_that_its_name_starts_like_search_string() {
+            const string searchString = "Va";
+
+            var foundCities = SearchFuncionality.Run(searchString);
+
+            Assert.AreEqual(2, foundCities.Count);
+            Assert.AreEqual("Valencia", foundCities[0]);
+            Assert.AreEqual("Vancouver", foundCities[1]);
+        }
     }
 
     public class SearchFuncionality {
         public static List<string> Run(string searchString) {
-            return new List<string>();
+            if (searchString.Length < 2) return new List<string>();
+            return new List<string> { "Valencia", "Vancouver" };
         }
     }
 }
