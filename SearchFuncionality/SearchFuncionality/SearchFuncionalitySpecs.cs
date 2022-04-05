@@ -34,14 +34,24 @@ namespace SearchFuncionalitySpecs {
 
             Assert.AreEqual(0, foundCities.Count);
         }
+
+        [Test]
+        public void return_cities_that_its_name_contains_search_string() {
+            const string searchString = "ape";
+
+            var foundCities = SearchFuncionality.Run(searchString);
+
+            Assert.AreEqual(1, foundCities.Count);
+            Assert.AreEqual("Budapest", foundCities[0]);
+        }
     }
 
     public class SearchFuncionality {
-        private static readonly List<string> Cities = new List<string> { "Valencia", "Vancouver" };
+        private static readonly List<string> Cities = new List<string> { "Valencia", "Vancouver", "Budapest" };
 
         public static List<string> Run(string searchString) {
             if (searchString.Length < 2) return new List<string>();
-            return Cities.FindAll(x => x.StartsWith(searchString));
+            return Cities.FindAll(x => x.Contains(searchString));
         }
     }
 }
