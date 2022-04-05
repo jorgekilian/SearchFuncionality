@@ -44,12 +44,55 @@ namespace SearchFuncionalitySpecs {
             Assert.AreEqual(1, foundCities.Count);
             Assert.AreEqual("Budapest", foundCities[0]);
         }
+
+        [Test]
+        public void return_all_cities_when_search_string_is_asterisk() {
+            const string searchString = "*";
+
+            var foundCities = SearchFuncionality.Run(searchString);
+
+            Assert.AreEqual(16, foundCities.Count);
+            Assert.AreEqual("Paris", foundCities[0]);
+            Assert.AreEqual("Budapest", foundCities[1]);
+            Assert.AreEqual("Skopje", foundCities[2]);
+            Assert.AreEqual("Rotterdam", foundCities[3]);
+            Assert.AreEqual("Valencia", foundCities[4]);
+            Assert.AreEqual("Vancouver", foundCities[5]);
+            Assert.AreEqual("Amsterdam", foundCities[6]);
+            Assert.AreEqual("Vienna", foundCities[7]);
+            Assert.AreEqual("Sydney", foundCities[8]);
+            Assert.AreEqual("New York City", foundCities[9]);
+            Assert.AreEqual("London", foundCities[10]);
+            Assert.AreEqual("Bangkok", foundCities[11]);
+            Assert.AreEqual("Hong Kong", foundCities[12]);
+            Assert.AreEqual("Dubai", foundCities[13]);
+            Assert.AreEqual("Rome", foundCities[14]);
+            Assert.AreEqual("Istanbul", foundCities[15]);
+        }
     }
 
     public class SearchFuncionality {
-        private static readonly List<string> Cities = new List<string> { "Valencia", "Vancouver", "Budapest" };
+        private static readonly List<string> Cities = new List<string> {
+            "Paris", 
+            "Budapest", 
+            "Skopje", 
+            "Rotterdam", 
+            "Valencia", 
+            "Vancouver",
+            "Amsterdam",
+            "Vienna",
+            "Sydney",
+            "New York City",
+            "London",
+            "Bangkok",
+            "Hong Kong",
+            "Dubai",
+            "Rome",
+            "Istanbul"
+        };
 
         public static List<string> Run(string searchString) {
+            if (searchString == "*") return Cities;
             if (searchString.Length < 2) return new List<string>();
             return Cities.FindAll(x => x.Contains(searchString));
         }
